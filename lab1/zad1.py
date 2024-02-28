@@ -57,5 +57,17 @@ for elem in lista:
     if type(elem) == str:
         print(elem)
 
-
+# def oblicz_biorytmy(ileminelo, okres):
+#     wartosc_biorytmu = math.sin((ileminelo * 2 * math.pi) / okres)
+#     komunikat = ""
+#     if wartosc_biorytmu > 0.5:
+#         komunikat = f"Jesteś w formie = {wartosc_biorytmu}"
+#     elif wartosc_biorytmu < -0.5:
+#         komunikat = f"Jesteś w słabej formie = {wartosc_biorytmu}"
+#         nowy_wartosc = math.sin(((ileminelo + 1) * 2 * math.pi) / okres)
+#         if nowy_wartosc > wartosc_biorytmu:
+#             komunikat += " jutro będzie lepiej"
+#         else:
+#             komunikat += " jutro będzie gorzej"
+#     return komunikat
 
