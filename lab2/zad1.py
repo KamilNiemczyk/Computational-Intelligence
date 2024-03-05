@@ -1,30 +1,45 @@
-# import pandas as pd
-# df = pd.read_csv("iris.csv")
-# # print(df)
-# # print(df.values)
-
-# #wszystkie wiersze, kolumna nr 0
-# # print(df.values[:, 0])
-# a=df.values[:, 0]
-# b=[1.0, 2.0, 3.0, 4.0]
-# print(type(a))
-# print(type(b))
-# #wiersze od 5 do 10, wszystkie kolumny
-# # print(df.values[5:11, :])
-# # #dane w komórce [1,4]
-# # print(df.values[1, 4])
-
-
 import pandas as pd
 
-missing_values = ["n/a", "na", "-", "--", 0]   #symbole które będą interpretowane jako błędna linia
-# df = pd.read_csv("iris_with_errors.csv")
-df = pd.read_csv("iris_with_errors.csv", na_values= missing_values)  #zamienia symbopl z missing values na "na"
-print(df.isnull().sum())
-# print(df.isnull())
-types= df.dtypes
-print(types)
+#zad1a
+df = pd.read_csv("iris_with_errors.csv")
+brakujace = df.isnull().sum().sum()
+# print(brakujace)
+# print(df.describe())
 
+# zad1b
+for column in df.columns:
+    if column != 'variety':
+        df[column] = pd.to_numeric(df[column], errors='coerce')     #zmiana typu kolumn na numeryczne
+# for column in df.columns:
+#     print(column, df[column].dtype)         #sprawdzenie typów kolumn
+
+numeric_columns = df.select_dtypes(include=['float64', 'int64']).columns
+for column in numeric_columns:             #wypełnienie brakujących wartości średnią z kolumny
+    df[column] = df[column].apply(lambda x: x if 0 < x < 15 else df[column].mean())
+
+#zad1c
+def zastąp(x):
+    lista  = ['setosa', 'versicolor', 'virginica']
+    mala = x.lower()
+    tempslowo = ""
+    licznik = 0            
+    def ilerazyliterawslowie(litera, slowo):
+        licznik = 0
+        for liter in slowo:
+            if liter == litera:
+                licznik += 1
+        return licznik
+    for slowo in lista:
+        nowylicznik = 0
+        for litera in slowo:
+            nowylicznik = ilerazyliterawslowie(litera, mala) + nowylicznik
+        if nowylicznik > licznik:
+            licznik = nowylicznik
+            tempslowo = slowo
+    return tempslowo.capitalize()
+
+df['variety'] = df['variety'].apply(lambda x: x if x in ['Setosa', 'Versicolor', 'Virginica'] else zastąp(x))
+# print(df['variety'].value_counts())
 
 
 
