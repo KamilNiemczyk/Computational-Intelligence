@@ -29,5 +29,5 @@ secrets.txt
 .DS_Store
 Thumbs.db
 
-.npy
-.h5
+*.npy
+*.h5
