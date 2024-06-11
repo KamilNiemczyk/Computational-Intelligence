@@ -5,12 +5,7 @@ reddit_read_only = praw.Reddit(client_id="rO84FKV0Zt0TTF2sasoJdQ",         # you
                                client_secret="AMN8cOPc-FPx-f8Zf40znZpmk0hRNg",      # your client secret
                                user_agent="Kamil")        # your user agent
  
-# Authorized instance
-# reddit_authorized = praw.Reddit(client_id="rO84FKV0Zt0TTF2sasoJdQ",         # your client id
-#                                 client_secret="AMN8cOPc-FPx-f8Zf40znZpmk0hRNg",      # your client secret
-#                                 user_agent="Kamil",        # your user agent
-#                                 username="",        # your reddit username
-#                                 password="Test12345")        # your reddit password
+
 def write_post_to_file(post):
     with open('posts.txt', 'ab') as file:
         file.write("Title: ".encode('utf-8'))
@@ -22,7 +17,7 @@ def write_post_to_file(post):
 
 subreddit = reddit_read_only.subreddit('PremierLeague')
 
-for post in subreddit.hot(limit=100):
+for post in subreddit.search(limit=100):
     write_post_to_file(post)
 
 
